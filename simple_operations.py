@@ -17,6 +17,7 @@ print("The multiplacation of the numbers are",multiply)
 r=7%3
 print("The remainder is",r)
 
+
 # Boolean operator
 # Boolean = True or False
 
