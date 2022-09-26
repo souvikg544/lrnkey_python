@@ -1,9 +1,10 @@
 # Write a program to compute the following bill of a retail store:
 #  Cost --------------------         Discount
-# >$1100        ----------             12%
+# > $1100        ----------            12%
 # >$650 <$1100      --------           9%
 # >450 <650        ------              6%
 # <450             ------              4%
+
 
 mp=float(input("Enter the market price : $"))
 d=0.0
@@ -23,4 +24,3 @@ else:
 print("The discount is : $",d)
 sp= mp-d
 print("The final selling price is : $",sp)
-
