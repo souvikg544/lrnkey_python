@@ -10,9 +10,8 @@ for i in range(0,n,1):
 print(ar)
 
 m=0
-
 for i in range(0,n,1):
-    if(m<ar[i]):
+    if(ar[i]>m):
         m=ar[i]
 
 print("MAX ELEMENT IS : ", m)
