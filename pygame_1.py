@@ -12,6 +12,7 @@ import random
 
 
 from pygame.locals import (
+RLEACCEL,
 K_UP,
 K_DOWN,
 K_LEFT,
@@ -24,8 +25,8 @@ QUIT
 class Player(pygame.sprite.Sprite):
     def __init__(self):
         super(Player,self).__init__()
-        self.surf= pygame.Surface((60,40))
-        self.surf.fill((0,0,255))
+        self.surf= pygame.image.load("rocket1.png").convert()
+        self.surf.set_colorkey((255,255,255), RLEACCEL)
         self.rect = self.surf.get_rect()
 
     def update(self,pressed_keys):
@@ -50,8 +51,8 @@ class Player(pygame.sprite.Sprite):
 class Enemy(pygame.sprite.Sprite):
     def __init__(self):
         super(Enemy,self).__init__()
-        self.surf=pygame.Surface((40,40))
-        self.surf.fill((255,0,0))
+        self.surf = pygame.image.load("birds1.png").convert()
+        self.surf.set_colorkey((255, 255, 255), RLEACCEL)
         self.rect = self.surf.get_rect(
             center=(
             random.randint(520,600),
@@ -94,7 +95,7 @@ while run:  # infinite loop
             enemies.add(newenemy)
             all_sprites.add(newenemy)
 
-    screen.fill((0,255,255))
+    screen.fill((255,255,255))
 
     #r=pygame.draw.circle(screen,(0,0,255),(250,250),100)
     pressed_keys=pygame.key.get_pressed()
@@ -104,6 +105,11 @@ while run:  # infinite loop
 
     for entity in all_sprites:
         screen.blit(entity.surf,entity.rect)
+
+    if pygame.sprite.spritecollideany(player,enemies):
+        player.kill()
+        time.sleep(2)
+        run=False
 
     pygame.display.flip()
 
