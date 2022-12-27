@@ -12,6 +12,9 @@ print("High difficulty and low time for enemies appearing will give a tough situ
 difficulty = int(input("Enter your difficulty level from 100 to 500 ------------> "))
 n_birds= int(input("Enter the time in which your enemies appear (50-500) -------->"))
 
+speed_player=int(input("Speed of the player(1-4) : "))
+speed_enemy= int(input("Speed of the enemy(1-4) : "))
+
 from pygame.locals import (
 RLEACCEL,
 K_UP,
@@ -32,13 +35,13 @@ class Player(pygame.sprite.Sprite):
 
     def update(self,pressed_keys):
         if(pressed_keys[K_UP]):
-            self.rect.move_ip(0,-1) # x,y
+            self.rect.move_ip(0,-speed_player) # x,y
         if (pressed_keys[K_DOWN]):
-            self.rect.move_ip(0, 1)
+            self.rect.move_ip(0, speed_player)
         if (pressed_keys[K_LEFT]):
-            self.rect.move_ip(-1, 0)
+            self.rect.move_ip(-speed_player, 0)
         if (pressed_keys[K_RIGHT]):
-            self.rect.move_ip(1, 0)
+            self.rect.move_ip(speed_player, 0)
 
         if self.rect.left<0:
             self.rect.left=0
@@ -60,7 +63,7 @@ class Enemy(pygame.sprite.Sprite):
             random.randint(0,700),
         )
         )
-        self.speed=random.randint(0,2)
+        self.speed=random.randint(0,speed_enemy)
 
     def update(self):
         self.rect.move_ip(-self.speed,0)
