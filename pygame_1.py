@@ -8,6 +8,9 @@ import random
 
 # Importing Sprite
 
+print("High difficulty and low time for enemies appearing will give a tough situation ")
+difficulty = int(input("Enter your difficulty level from 100 to 500 ------------> "))
+n_birds= int(input("Enter the time in which your enemies appear (50-500) -------->"))
 
 from pygame.locals import (
 RLEACCEL,
@@ -57,7 +60,7 @@ class Enemy(pygame.sprite.Sprite):
             random.randint(0,700),
         )
         )
-        self.speed=random.randint(0,1)
+        self.speed=random.randint(0,2)
 
     def update(self):
         self.rect.move_ip(-self.speed,0)
@@ -95,7 +98,7 @@ all_sprites=pygame.sprite.Group()
 all_sprites.add(player)
 
 addenemy = pygame.USEREVENT +1
-pygame.time.set_timer(addenemy,250)
+pygame.time.set_timer(addenemy,n_birds)
 
 addcloud=pygame.USEREVENT + 2
 pygame.time.set_timer(addcloud,1000)
@@ -167,6 +170,6 @@ while run:  # infinite loop
     screen.blit(text_score, text_score_rect)
 
     pygame.display.flip()
-    clock.tick(120)
+    clock.tick(difficulty)
 
 pygame.quit()
