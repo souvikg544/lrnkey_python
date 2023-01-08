@@ -46,7 +46,7 @@ y_img=pg.transform.scale(
 def game_initial_window():
     screen.blit(initial_window,(0,0))
     pg.display.update()
-    time.sleep(3)
+
     screen.fill(white)
 
     pg.draw.line(screen,line_color,(width/3,0),(width/3,height),7)
@@ -55,17 +55,20 @@ def game_initial_window():
     pg.draw.line(screen, line_color, (0, height/3), (width, height/3), 7)
     pg.draw.line(screen, line_color, (0, height/3 * 2), (width, height / 3 *2), 7)
     #pg.display.update()
+    time.sleep(3)
     #time.sleep(10)
     draw_status()
 
-def draw_status():
+def draw_status(reset=False):
     global draw
     if winner is None:
         message=xo.upper()+"'s Turn"
     else:
-        message=winner.upper() + "won"
+        message=winner.upper() + " won"
     if draw:
         message=" game draw !"
+    if(reset == True):
+        message="New Game"
 
 
     font=pg.font.Font(None,30)
@@ -74,9 +77,9 @@ def draw_status():
     text_rect=text.get_rect(center=(width/2,500-50))
     screen.blit(text,text_rect)
     pg.display.update()
-    time.sleep(10)
+    #time.sleep(10)
 
-game_initial_window()
+#game_initial_window()
 
 def check_win():
     global board,winner,draw
@@ -122,3 +125,80 @@ def check_win():
         # Draw everything
 
         draw_status()
+
+def drawxo(row,col):
+    global board,xo
+
+    if (row == 1):
+        posx=30
+
+    if (row==2):
+        posx=width/3+30
+    if(row==3):
+        posx=width/3 * 2 +30
+
+    if(col==1):
+        posy=30
+    if(col==2):
+        posy=height/3+ 30
+    if(col==3):
+        posy=height/3 * 2 +30
+
+    board[row-1][col-1]=xo
+
+    if(xo == 'x'):
+        screen.blit(x_img,(posy,posx))
+        xo='o'
+    else:
+        screen.blit(y_img,(posy,posx))
+        xo='x'
+    pg.display.update()
+
+def user_click():
+    x,y=pg.mouse.get_pos()
+
+    if(x<width/3):
+        col=1
+    elif(x<width/ 3 * 2):
+        col=2
+    elif(x<width):
+        col=3
+    else:
+        col=None
+
+    if (y < height / 3):
+        row  = 1
+    elif (y < height / 3 * 2):
+        row = 2
+    elif (y < height):
+        row = 3
+    else:
+        row = None
+
+    if(row and col and board[row-1][col-1] is None):
+        global xo
+        drawxo(row,col)
+        check_win()
+
+def reset_game():
+    global board,winner,xo,draw
+    time.sleep(3)
+    xo='x'
+    draw=False
+    game_initial_window()
+    winner=None
+    baord=[[None]*3,[None]*3,[None]*3]
+    #draw_status(reset=True)
+
+game_initial_window()
+while(True):
+    for event in pg.event.get():
+        if(event.type==QUIT):
+            pg.quit()
+            sys.exit()
+        elif(event.type==MOUSEBUTTONDOWN):
+            user_click()
+            if(winner or draw):
+                reset_game()
+    pg.display.update()
+    clock.tick(fps)
