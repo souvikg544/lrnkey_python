@@ -1,20 +1,10 @@
 # Introduction to the pygame module
-
 #Pygame as the name suggests helps us to create games in python
+
 
 import pygame
 import time
 import random
-
-# Importing Sprite
-
-print("High difficulty and low time for enemies appearing will give a tough situation ")
-difficulty = int(input("Enter your difficulty level from 100 to 500 ------------> "))
-n_birds= int(input("Enter the time in which your enemies appear (50-500) -------->"))
-
-speed_player=int(input("Speed of the player(1-4) : "))
-speed_enemy= int(input("Speed of the enemy(1-4) : "))
-
 from pygame.locals import (
 RLEACCEL,
 K_UP,
@@ -25,6 +15,17 @@ K_ESCAPE,
 KEYDOWN,
 QUIT
 )
+
+
+print(" Welcome to Rockets Game ")
+difficulty = int(input("Enter your difficulty level from 100 to 500 ------------> "))
+n_birds= int(input("Enter the time in which your enemies appear (50-500) -------->"))
+
+speed_player=int(input("Speed of the player(1-4) : "))
+speed_enemy= int(input("Speed of the enemy(1-4) : "))
+
+
+
 
 class Player(pygame.sprite.Sprite):
     def __init__(self):
@@ -92,6 +93,8 @@ pygame.init()
 start=time.time()
 
 screen=pygame.display.set_mode([700,700])
+
+
 player = Player()
 
 
@@ -126,6 +129,7 @@ text_score=font.render("Score : ",True,(0,255,0),(0,0,128))
 text_score_rect=text_score.get_rect()
 text_score_rect.center=(500,600)
 
+
 run1=True
 while run:  # infinite loop
     for e in pygame.event.get():
@@ -157,12 +161,14 @@ while run:  # infinite loop
     for entity in all_sprites:
         screen.blit(entity.surf,entity.rect)
 
+
     if pygame.sprite.spritecollideany(player,enemies):
         player.kill()
         print("Lost")
         screen.blit(text,textrect)
         #clock.tick(1)
         run=False
+
     text_score = font.render(f"Score : {i}", True, (0, 255, 0), (0, 0, 128))
 
     pt = time.time()  # Shortcut for present time

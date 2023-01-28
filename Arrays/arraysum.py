@@ -13,4 +13,5 @@ print("The sum of the array is",s)
 # s=15+5=20
 #s=20+7=27
 #s=27+8=35
-#Next - Take an array , print the odd elements of the array
+
+# Next - Take an array , print the odd elements of the array

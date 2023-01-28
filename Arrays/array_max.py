@@ -1,10 +1,10 @@
-# Take an array as input and find the maximum number in the array
+# Take an array as input and find the maximum number in the array1
 
 n=int(input("Length of the array : "))
 ar=[]
 
 for i in range(0,n,1):
-    v=int(input("Element : "))
+    v= int(input("Element : "))
     ar.append(v)
 
 print(ar)
@@ -15,3 +15,4 @@ for i in range(0,n,1):
         m=ar[i]
 
 print("MAX ELEMENT IS : ", m)
+
