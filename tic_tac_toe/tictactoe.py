@@ -3,21 +3,25 @@ import sys
 import time
 from pygame.locals import *
 
-xo='x'
 
+# Define Constants and Variables
+
+xo='x'
 winner = None
 draw=None
 width=400
 height=400
-white = (255,255,255)
+white = (255,255,255) # Bckground color
+line_color=(0,0,0)  # Black color
 
-line_color=(0,0,0)
+board= [[None]*3,[None]*3,[None]*3] # We have created an array to contain x and o
 
-board=[[None]*3,[None]*3,[None]*3]
 
+# Starting the game
 pg.init()
 
-fps=30
+
+fps=30 # Determines the speed of the game
 clock=pg.time.Clock()
 
 screen=pg.display.set_mode((width,height+100),0,32)
@@ -33,6 +37,7 @@ initial_window=pg.transform.scale(
     (width,height+100)
 
 )
+
 x_img=pg.transform.scale(
     x_img,
     (80,80)
@@ -49,9 +54,11 @@ def game_initial_window():
 
     screen.fill(white)
 
+    # Drawing Vertical lines
     pg.draw.line(screen,line_color,(width/3,0),(width/3,height),7)
     pg.draw.line(screen, line_color, (width / 3 *2, 0), (width / 3 *2, height), 7)
 
+    #Drawing Horizontal lines
     pg.draw.line(screen, line_color, (0, height/3), (width, height/3), 7)
     pg.draw.line(screen, line_color, (0, height/3 * 2), (width, height / 3 *2), 7)
     #pg.display.update()
@@ -104,12 +111,9 @@ def check_win():
                              ((col + 1) * width / 3 - width / 6, height), 4)
                 break
 
-
-
         # check for diagonal winner
 
         #Left diagonal
-
         if(board[0][0] == board[1][1] == board[2][2]) and (board[0][0] is not None):
             winner=board[0][0]
             pg.draw.line(screen,(250,70,70),(50,50),(350,350),4)
@@ -119,11 +123,7 @@ def check_win():
             winner = board[0][2]
             pg.draw.line(screen, (250, 70, 70), (350, 50), (50, 350), 4)
 
-
-
-
-        # Draw everything
-
+       # Draw everything
         draw_status()
 
 def drawxo(row,col):
@@ -182,7 +182,7 @@ def user_click():
 
 def reset_game():
     global board,winner,xo,draw
-    time.sleep(3)
+    #time.sleep(3)
     xo='x'
     draw=False
     game_initial_window()
@@ -198,7 +198,9 @@ while(True):
             sys.exit()
         elif(event.type==MOUSEBUTTONDOWN):
             user_click()
-            if(winner or draw):
-                reset_game()
+        if(winner or draw):
+            time.sleep(2)
+            reset_game()
+
     pg.display.update()
     clock.tick(fps)
