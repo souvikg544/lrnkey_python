@@ -1,4 +1,7 @@
 # Python Basic Course
+
+![800px-Python svg](https://user-images.githubusercontent.com/63863911/215288350-1613849c-3bce-414b-ac4c-12eae9a690e6.png)
+
 ### Hey Learners ! Welcome to my basic python course where I teach python foundamentals.
 #### To book classes with me on Lrnkey head back to my profile -
 
